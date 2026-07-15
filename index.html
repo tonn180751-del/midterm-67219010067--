@@ -225,27 +225,60 @@
     line-height:1.5;
   }
 
-  /* ===== Songs — coming soon ===== */
-  .songs-placeholder{
-    display:flex;
+  /* ===== Songs grid ===== */
+  .songs-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
     gap:20px;
-    align-items:center;
-    background:linear-gradient(135deg, rgba(79,216,208,0.12), rgba(139,107,255,0.1));
-    border:1.5px dashed rgba(79,216,208,0.5);
-    border-radius:16px;
-    padding:28px;
   }
-  .songs-placeholder .disc{
-    flex-shrink:0;
-    width:64px; height:64px;
-    border-radius:50%;
-    background:repeating-radial-gradient(circle, #0c0d1e 0 3px, #2a2450 3px 6px);
-    border:3px solid var(--cyan);
-    animation:spin 6s linear infinite;
+  .song-card{
+    position:relative;
+    background:var(--cork);
+    border-radius:14px;
+    padding:14px 14px 16px;
+    box-shadow:0 12px 24px rgba(0,0,0,0.35);
+    transition:transform .25s ease, box-shadow .25s ease;
   }
-  @keyframes spin{ to{ transform:rotate(360deg); } }
-  .songs-placeholder h4{ color:var(--paper); font-size:1.05rem; }
-  .songs-placeholder p{ margin:4px 0 0; color:#c7c4e6; font-size:0.9rem; }
+  .song-card:nth-child(odd){ transform:rotate(-1deg); }
+  .song-card:nth-child(even){ transform:rotate(1deg); }
+  .song-card:hover{
+    transform:rotate(0deg) translateY(-6px) scale(1.02);
+    box-shadow:0 18px 34px rgba(79,216,208,0.35);
+    z-index:5;
+  }
+  .song-card::before{
+    content:"";
+    position:absolute; top:-10px; left:50%; transform:translateX(-50%) rotate(3deg);
+    width:70px; height:22px;
+    background:repeating-linear-gradient(45deg, rgba(255,255,255,0.55) 0 6px, rgba(255,255,255,0.3) 6px 12px);
+    border-radius:2px;
+    opacity:0.85;
+  }
+  .song-card .rank-tag{
+    position:absolute; top:10px; right:10px;
+    background:var(--star);
+    color:#3a2b00;
+    font-family:"Baloo 2"; font-weight:800;
+    font-size:0.85rem;
+    padding:3px 9px;
+    border-radius:999px;
+    box-shadow:0 4px 8px rgba(0,0,0,0.3);
+    z-index:2;
+  }
+  .song-card:first-child .rank-tag{ background:var(--pink-tape); color:#3a1020; }
+  .song-card iframe{
+    width:100%;
+    aspect-ratio:16/9;
+    border:none;
+    border-radius:8px;
+    display:block;
+    margin-top:6px;
+  }
+  .song-card h3{
+    font-size:1rem;
+    margin-top:10px;
+    color:var(--paper);
+  }
 
   /* ===== Button ===== */
   .cta-wrap{ text-align:center; margin-top:56px; }
@@ -268,11 +301,10 @@
     .profile-section::after{ right:50%; transform:translateX(50%) rotate(4deg); }
     .bento-grid{ grid-template-columns:1fr 1fr; }
     .bento-grid .bento-card{ grid-column:span 1 !important; grid-row:span 1 !important; }
-    .songs-placeholder{ flex-direction:column; text-align:center; }
   }
 
   @media (prefers-reduced-motion: reduce){
-    .stars, .songs-placeholder .disc, #alertBtn, .bento-card{ animation:none; transition:none; }
+    .stars, #alertBtn, .bento-card, .song-card{ animation:none; transition:none; }
   }
 </style>
 </head>
@@ -340,27 +372,45 @@
   <section class="bento-section">
     <div class="section-head">
       <h2>🎧 My Top 5 Favorite Songs</h2>
-      <span class="count">https://www.youtube.com/embed/CPtvV0XC_0k?si=f1j48DIF08vntbQP</span>
-       <span class="count">รอเพลย์ลิสต์</span>
-      <span class="count">รอเพลย์ลิสต์</span>
-       <span class="count">รอเพลย์ลิสต์</span>
-
-
-
-
-      
+      <span class="count">05 เพลง</span>
     </div>
-    <div class="songs-placeholder">
-      <div class="disc"></div>
-      <div>
-        <h4>เพลย์ลิสต์กำลังจะมาเร็วๆ นี้ 🎵</h4>
-        <p>ส่งชื่อเพลง/ลิงก์ YouTube มาได้เลย แล้วจะใส่การ์ดเพลงพร้อมวิดีโอฝังให้ตรงนี้</p>
+    <div class="songs-grid">
+
+      <div class="song-card">
+        <span class="rank-tag">#1</span>
+        <iframe src="https://www.youtube.com/embed/82-jTNka3uc?si=eCWqfm-OfaBYTyXa" title="YouTube video 1" allowfullscreen></iframe>
+        <h3>เพลงที่ 1</h3>
       </div>
+
+      <div class="song-card">
+        <span class="rank-tag">#2</span>
+        <iframe src="https://www.youtube.com/embed/DXoIxNIWLBI?si=JZHodduElljvN5nf" title="YouTube video 2" allowfullscreen></iframe>
+        <h3>เพลงที่ 2</h3>
+      </div>
+
+      <div class="song-card">
+        <span class="rank-tag">#3</span>
+        <iframe src="https://www.youtube.com/embed/G2JFOEFmnnI?si=I57_7Uhv59e-VW4K" title="YouTube video 3" allowfullscreen></iframe>
+        <h3>เพลงที่ 3</h3>
+      </div>
+
+      <div class="song-card">
+        <span class="rank-tag">#4</span>
+        <iframe src="https://www.youtube.com/embed/EUFrU1TuyAg?si=fL99YIGTrcoPegLR" title="YouTube video 4" allowfullscreen></iframe>
+        <h3>เพลงที่ 4</h3>
+      </div>
+
+      <div class="song-card">
+        <span class="rank-tag">#5</span>
+        <iframe src="https://www.youtube.com/embed/CPtvV0XC_0k?si=f1j48DIF08vntbQP" title="YouTube video 5" allowfullscreen></iframe>
+        <h3>เพลงที่ 5</h3>
+      </div>
+
     </div>
   </section>
-    <div class="cta-wrap">
-  <button id="alertBtn">✨ นะโมสามเกือบไม่จบแล้วกดออก ✨</button>
-</div>
+
+  <div class="cta-wrap">
+    <button id="alertBtn">✨ นะโมสามเกือบไม่จบแล้วกดออก ✨</button>
   </div>
 
 </div>
