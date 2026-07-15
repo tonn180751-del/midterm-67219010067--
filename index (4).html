@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ต้นน้ำ | Midterm Project</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Noto+Sans+Thai:wght@400;500;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-navy: #12142b;
+    --bg-navy-2: #1b1f3f;
+    --cork: #2a2450;
+    --violet: #8b6bff;
+    --cyan: #4fd8d0;
+    --pink-tape: #ff8fb3;
+    --paper: #f6f1e4;
+    --star: #ffe98a;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    font-family:"Noto Sans Thai", sans-serif;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(139,107,255,0.18), transparent 40%),
+      radial-gradient(circle at 85% 30%, rgba(79,216,208,0.14), transparent 45%),
+      var(--bg-navy);
+    color:var(--paper);
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* twinkling stars */
+  .stars{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      radial-gradient(1.5px 1.5px at 10% 20%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 80% 15%, #fff, transparent),
+      radial-gradient(1px 1px at 60% 60%, #fff, transparent),
+      radial-gradient(1px 1px at 30% 80%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 90% 70%, #fff, transparent),
+      radial-gradient(1px 1px at 45% 35%, #fff, transparent);
+    opacity:0.5;
+    animation: twinkle 5s ease-in-out infinite alternate;
+  }
+  @keyframes twinkle{ from{opacity:0.25;} to{opacity:0.65;} }
+
+  .string-lights{
+    position:relative; z-index:2;
+    height:46px;
+    background-repeat:repeat-x;
+    background-size:60px 46px;
+    background-image:
+      radial-gradient(circle 5px at 30px 6px, var(--star) 60%, transparent 62%);
+    margin-bottom:-10px;
+  }
+  .string-lights::before{
+    content:"";
+    position:absolute; top:0; left:0; right:0; height:2px;
+    background:repeating-linear-gradient(90deg, #4a4570 0 40px, transparent 40px 60px);
+  }
+
+  .container{
+    max-width:1000px;
+    margin:0 auto;
+    padding:10px 20px 60px;
+    position:relative;
+    z-index:1;
+  }
+
+  h1,h2,h3,h4{ font-family:"Baloo 2", "Noto Sans Thai", sans-serif; margin:0; }
+
+  .eyebrow{
+    font-family:"Permanent Marker", cursive;
+    color:var(--pink-tape);
+    font-size:0.95rem;
+    letter-spacing:0.5px;
+  }
+
+  /* ===== Profile / poster card ===== */
+  .profile-section{
+    display:flex;
+    gap:28px;
+    align-items:center;
+    background:linear-gradient(160deg, var(--bg-navy-2), #211a44);
+    border:1px solid rgba(139,107,255,0.35);
+    border-radius:20px;
+    padding:32px;
+    margin-top:24px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.35);
+    position:relative;
+  }
+  .profile-section::after{
+    content:"MIDTERM ✦ 20 pts";
+    position:absolute;
+    top:-14px; right:24px;
+    background:var(--violet);
+    color:#12142b;
+    font-family:"Baloo 2";
+    font-weight:800;
+    font-size:0.75rem;
+    padding:6px 14px;
+    border-radius:999px;
+    transform:rotate(4deg);
+    box-shadow:0 6px 14px rgba(139,107,255,0.4);
+  }
+  .avatar{
+    flex-shrink:0;
+    width:130px; height:130px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:"Baloo 2"; font-weight:800; font-size:3rem;
+    color:#12142b;
+    background:conic-gradient(from 200deg, var(--cyan), var(--violet), var(--pink-tape), var(--cyan));
+    border:4px solid var(--paper);
+    box-shadow:0 0 0 6px rgba(139,107,255,0.25);
+    overflow:hidden;
+  }
+  .avatar img{
+    width:100%; height:100%;
+    object-fit:cover;
+  }
+  .profile-info h1{
+    font-size:2.1rem;
+    color:var(--paper);
+  }
+  .profile-info .nickname{
+    display:inline-block;
+    margin-top:6px;
+    background:var(--pink-tape);
+    color:#3a1020;
+    font-weight:700;
+    padding:3px 12px;
+    border-radius:8px;
+    transform:rotate(-2deg);
+  }
+  .bio{
+    margin-top:14px;
+    line-height:1.7;
+    color:#d8d6ef;
+    font-size:0.98rem;
+  }
+
+  /* ===== Section headers ===== */
+  .bento-section{ margin-top:56px; }
+  .section-head{
+    display:flex; align-items:baseline; gap:12px;
+    margin-bottom:22px;
+    border-bottom:2px dashed rgba(255,255,255,0.15);
+    padding-bottom:10px;
+  }
+  .section-head h2{ font-size:1.6rem; color:var(--paper); }
+  .section-head .count{ color:var(--cyan); font-family:"Baloo 2"; font-weight:700; }
+
+  /* ===== Anime poster wall (bento) ===== */
+  .bento-grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:20px;
+  }
+  .bento-grid .bento-card:nth-child(1){ grid-column:span 2; grid-row:span 2; }
+  .bento-grid .bento-card:nth-child(2){ grid-column:span 3; }
+  .bento-grid .bento-card:nth-child(3){ grid-column:span 3; }
+  .bento-grid .bento-card:nth-child(4){ grid-column:span 2; grid-row:span 2;}
+  .bento-grid .bento-card:nth-child(5){ grid-column:span 3; }
+
+  .bento-card{
+    position:relative;
+    background:var(--cork);
+    border-radius:14px;
+    padding:14px 14px 16px;
+    box-shadow:0 12px 24px rgba(0,0,0,0.35);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .bento-card:nth-child(odd){ transform:rotate(-1.2deg); }
+  .bento-card:nth-child(even){ transform:rotate(1.2deg); }
+  .bento-card:hover{
+    transform:rotate(0deg) translateY(-6px) scale(1.02);
+    box-shadow:0 18px 34px rgba(139,107,255,0.35);
+    z-index:5;
+  }
+  .bento-card::before{ /* washi tape */
+    content:"";
+    position:absolute; top:-10px; left:50%; transform:translateX(-50%) rotate(-3deg);
+    width:70px; height:22px;
+    background:repeating-linear-gradient(45deg, rgba(255,255,255,0.55) 0 6px, rgba(255,255,255,0.3) 6px 12px);
+    border-radius:2px;
+    opacity:0.85;
+  }
+  .rank-tag{
+    position:absolute; top:10px; right:10px;
+    background:var(--star);
+    color:#3a2b00;
+    font-family:"Baloo 2"; font-weight:800;
+    font-size:0.85rem;
+    padding:3px 9px;
+    border-radius:999px;
+    box-shadow:0 4px 8px rgba(0,0,0,0.3);
+    z-index:2;
+  }
+  .card-rank1 .rank-tag{ background:var(--pink-tape); color:#3a1020; }
+  .bento-card img{
+    width:100%;
+    aspect-ratio:3/4;
+    object-fit:cover;
+    border-radius:8px;
+    display:block;
+    margin-top:6px;
+  }
+  .bento-card:nth-child(2) img, .bento-card:nth-child(3) img, .bento-card:nth-child(5) img{
+    aspect-ratio:16/9;
+  }
+  .bento-card h3{
+    font-size:1rem;
+    margin-top:10px;
+    color:var(--paper);
+  }
+  .bento-card p{
+    margin:6px 0 0;
+    font-size:0.85rem;
+    color:#c7c4e6;
+    line-height:1.5;
+  }
+
+  /* ===== Songs — coming soon ===== */
+  .songs-placeholder{
+    display:flex;
+    gap:20px;
+    align-items:center;
+    background:linear-gradient(135deg, rgba(79,216,208,0.12), rgba(139,107,255,0.1));
+    border:1.5px dashed rgba(79,216,208,0.5);
+    border-radius:16px;
+    padding:28px;
+  }
+  .songs-placeholder .disc{
+    flex-shrink:0;
+    width:64px; height:64px;
+    border-radius:50%;
+    background:repeating-radial-gradient(circle, #0c0d1e 0 3px, #2a2450 3px 6px);
+    border:3px solid var(--cyan);
+    animation:spin 6s linear infinite;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .songs-placeholder h4{ color:var(--paper); font-size:1.05rem; }
+  .songs-placeholder p{ margin:4px 0 0; color:#c7c4e6; font-size:0.9rem; }
+
+  /* ===== Button ===== */
+  .cta-wrap{ text-align:center; margin-top:56px; }
+  #alertBtn{
+    font-family:"Baloo 2"; font-weight:700; font-size:1rem;
+    color:#12142b;
+    background:linear-gradient(120deg, var(--star), var(--pink-tape));
+    border:none;
+    padding:16px 34px;
+    border-radius:999px;
+    cursor:pointer;
+    box-shadow:0 12px 26px rgba(255,143,179,0.35);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  #alertBtn:hover{ transform:translateY(-3px) scale(1.03); box-shadow:0 16px 32px rgba(255,143,179,0.5); }
+  #alertBtn:focus-visible, .bento-card:focus-visible{ outline:3px solid var(--cyan); outline-offset:3px; }
+
+  @media (max-width:720px){
+    .profile-section{ flex-direction:column; text-align:center; }
+    .profile-section::after{ right:50%; transform:translateX(50%) rotate(4deg); }
+    .bento-grid{ grid-template-columns:1fr 1fr; }
+    .bento-grid .bento-card{ grid-column:span 1 !important; grid-row:span 1 !important; }
+    .songs-placeholder{ flex-direction:column; text-align:center; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .stars, .songs-placeholder .disc, #alertBtn, .bento-card{ animation:none; transition:none; }
+  }
+</style>
+</head>
+<body>
+<div class="stars"></div>
+<div class="string-lights"></div>
+
+<div class="container">
+
+  <header class="profile-section">
+    <div class="avatar"><img src="profileme.png" alt="รูปโปรไฟล์ ต้นน้ำ"></div>
+    <div class="profile-info">
+      <p class="eyebrow">✦ my corner of the internet ✦</p>
+      <h1>ภูมิพัฒน์</h1>
+      <span class="nickname">ชื่อเล่น: ต้นน้ำ</span>
+      <p class="bio">ยินดีต้อนรับสู่เว็บที่เอาไว้ให้พวกเธอทำข้อสอบกลางภาค เพื่อ 20 คะแนน จงท่อง 3 อ. อด เอา อิ</p>
+    </div>
+  </header>
+
+  <section class="bento-section">
+    <div class="section-head">
+      <h2>🎬 My Top 5 Favorite Anime</h2>
+      <span class="count">05 เรื่อง</span>
+    </div>
+    <div class="bento-grid">
+
+      <div class="bento-card card-rank1">
+        <span class="rank-tag">#1</span>
+        <img src="1.jpg" alt="Detective Conan">
+        <h3>Detective Conan (โคนัน)</h3>
+        <p>เรื่องนี้คือที่สุดในใจเพราะ...</p>
+      </div>
+
+      <div class="bento-card">
+        <span class="rank-tag">#2</span>
+        <img src="2.jpg" alt="Haikyuu!!">
+        <h3>Haikyuu!!</h3>
+        <p>เรื่องนี้คือที่สุดในใจเพราะ...</p>
+      </div>
+
+      <div class="bento-card">
+        <span class="rank-tag">#3</span>
+        <img src="3.jpg" alt="Sakamoto Days">
+        <h3>Sakamoto Days</h3>
+        <p>เรื่องนี้คือที่สุดในใจเพราะ...</p>
+      </div>
+
+      <div class="bento-card">
+        <span class="rank-tag">#4</span>
+        <img src="4.jpg" alt="Blue Lock">
+        <h3>Blue Lock (บลูล็อค)</h3>
+        <p>เรื่องนี้คือที่สุดในใจเพราะ...</p>
+      </div>
+
+      <div class="bento-card">
+        <span class="rank-tag">#5</span>
+        <img src="5.jpg" alt="My Hero Academia">
+        <h3>My Hero Academia (มายฮีโร่ อคาเดเมีย)</h3>
+        <p>เรื่องนี้คือที่สุดในใจเพราะ...</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="bento-section">
+    <div class="section-head">
+      <h2>🎧 My Top 5 Favorite Songs</h2>
+      <span class="count">รอเพลย์ลิสต์</span>
+    </div>
+    <div class="songs-placeholder">
+      <div class="disc"></div>
+      <div>
+        <h4>เพลย์ลิสต์กำลังจะมาเร็วๆ นี้ 🎵</h4>
+        <p>ส่งชื่อเพลง/ลิงก์ YouTube มาได้เลย แล้วจะใส่การ์ดเพลงพร้อมวิดีโอฝังให้ตรงนี้</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-wrap">
+    <button id="alertBtn">✨ นะโมสามจบแล้วกดสิ ✨</button>
+  </div>
+
+</div>
+
+<script>
+  document.getElementById('alertBtn').addEventListener('click', function(){
+    alert('โชคดีกับการสอบนะ! 🍀✨');
+  });
+</script>
+</body>
+</html>
